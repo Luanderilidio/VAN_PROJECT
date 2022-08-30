@@ -1,7 +1,8 @@
 import { Box } from '@mui/material';
+import Page from '../../components/page';
 
 const Home = function () {
-  return <Box>luander</Box>;
+  return <Page />;
 };
 
 export default Home;
