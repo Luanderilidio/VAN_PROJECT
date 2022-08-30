@@ -1,8 +1,13 @@
 // import './App.css';
 import Rotas from './router';
+import Theme from './theme';
 
 const App = function () {
-  return <Rotas />;
+  return (
+    <Theme>
+      <Rotas />
+    </Theme>
+  );
 };
 
 export default App;
