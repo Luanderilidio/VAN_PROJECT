@@ -1,6 +1,6 @@
 // import './App.css';
-import Rotas from './router';
-import Theme from './theme';
+import Rotas from "./router";
+import Theme from "./theme";
 
 const App = function () {
   return (

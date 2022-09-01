@@ -1,10 +1,10 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import { createGlobalStyle } from 'styled-components';
-import App from './App';
-import '@fontsource/roboto/500.css';
-import '@fontsource/poppins/';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import { createGlobalStyle } from "styled-components";
+import App from "./App";
+import "@fontsource/roboto/500.css";
+import "@fontsource/poppins/";
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -16,7 +16,7 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <GlobalStyle />
