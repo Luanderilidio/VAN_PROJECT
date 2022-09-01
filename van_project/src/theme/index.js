@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { CssBaseline } from '@mui/material';
-import { ptBR } from '@material-ui/core/locale';
+import React, { useState } from "react";
+import PropTypes from "prop-types";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { CssBaseline } from "@mui/material";
+import { ptBR } from "@material-ui/core/locale";
 
 const DefaultTheme = (mode) => ({
   breakpoints: {
@@ -11,42 +11,47 @@ const DefaultTheme = (mode) => ({
       tablet: 600,
       laptop: 900,
       notebook: 1200,
-      desktop: 1536
-    }
+      desktop: 1536,
+    },
   },
   components: {
     MuiButton: {
       styleOverrides: {
         root: {
-          textTransform: 'capitalize'
-        }
-      }
-    }
+          textTransform: "capitalize",
+          color: "#FFFFFF",
+        },
+      },
+    },
   },
   typography: {
-    fontFamily: ['Roboto', 'Poppins'].join(',')
+    fontFamily: ["Roboto", "Poppins"].join(","),
   },
   palette: {
     mode,
-    primary: { main: '#FFB200' },
-    secundary: { main: '#277BC0' },
+    primary: { main: "#FFB200" },
+    secundary: { main: "#277BC0" },
     striped: {
-      main: '#E5E5E5'
+      main: "#E5E5E5",
     },
     button: {
-      ...(mode === 'dark'
+      ...(mode === "dark"
         ? {
-            main: '#2e7d32'
+            main: "#2e7d32",
           }
         : {
-            main: '#2e7d32'
-          })
-    }
+            main: "#2e7d32",
+          }),
+    },
   },
-  ptBR
+  background: {
+    default: "#E8E8E8",
+    paper: "#FFFFFF",
+  },
+  ptBR,
 });
 const Theme = function ({ children }) {
-  const darkModeTheme = createTheme(DefaultTheme('light'));
+  const darkModeTheme = createTheme(DefaultTheme("light"));
 
   return (
     <ThemeProvider theme={darkModeTheme}>
@@ -57,7 +62,7 @@ const Theme = function ({ children }) {
 };
 
 Theme.propTypes = {
-  children: PropTypes.element.isRequired
+  children: PropTypes.element.isRequired,
 };
 
 export default Theme;
