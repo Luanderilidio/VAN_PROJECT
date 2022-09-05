@@ -14,6 +14,9 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
+  Container,
+  Chip,
+  Stack,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
@@ -21,6 +24,7 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { TbTruckDelivery } from "react-icons/tb";
 import { BsCartPlusFill } from "react-icons/bs";
 import { ImSearch } from "react-icons/im";
+import Logo from "../../assets/van-de-entrega.png";
 import Styles from "./styles";
 
 const drawerWidth = 240;
@@ -52,7 +56,7 @@ const Page = function ({ children }) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div">
+          <Typography sx={{color: "#FFFFFF"}} variant="h6" noWrap component="div">
             Entregas Van
           </Typography>
         </Toolbar>
@@ -81,7 +85,18 @@ const Page = function ({ children }) {
           </IconButton>
         </Styles.DrawerHeader>
         <Divider />
-
+        <Stack alignItems="center">
+          <Box
+            component="img"
+            src={Logo}
+            alt="logo"
+            sx={{ width: 100, height: 100 }}
+          />
+          <Typography gutterBottom color="primary">
+            Van Project
+          </Typography>
+        </Stack>
+        <Divider />
         <List>
           <ListItem
             onClick={() => {
@@ -108,9 +123,11 @@ const Page = function ({ children }) {
             </ListItemButton>
           </ListItem>
           <ListItem
-            onClick={() => {
-              navigate(`${process.env.PUBLIC_URL}/consultar`);
-            }}
+            secondaryAction={
+              <IconButton edge="end" aria-label="comments">
+                <Chip variant="outlined" color="primary" label="build" />
+              </IconButton>
+            }
           >
             <ListItemButton>
               <ListItemIcon>
@@ -124,7 +141,8 @@ const Page = function ({ children }) {
       <Styles.Main open={open}>
         <Styles.DrawerHeader />
         <Styles.DrawerHeader />
-        {children}
+        <Container maxWidth="laptop">{children}</Container>
+        <Styles.DrawerHeader />
       </Styles.Main>
     </Box>
   );
