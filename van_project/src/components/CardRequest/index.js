@@ -1,9 +1,5 @@
-import * as React from "react";
-
-import { blue } from "@mui/material/colors";
-// import FavoriteIcon from "@mui/icons-material/Favorite";
-// import ShareIcon from "@mui/icons-material/Share";
-// import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { useState } from "react";
+import { blue, red } from "@mui/material/colors";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import {
   Box,
@@ -14,7 +10,6 @@ import {
   Stack,
   Card,
   CardHeader,
-  CardMedia,
   CardContent,
   CardActions,
   Collapse,
@@ -23,9 +18,13 @@ import {
   Typography,
   Snackbar,
   Alert,
+  Modal,
 } from "@mui/material";
 import { HiCheckCircle } from "react-icons/hi";
+import moment from "moment";
 import api from "../../services/api";
+import ModalStyled from "./styles";
+import FormDelivery from "../FormDelivery";
 
 const CardRequest = function ({
   propId,
@@ -34,14 +33,22 @@ const CardRequest = function ({
   propQuantidade,
   propResponsavel,
   propPerecivel,
+  propDescricao,
   propIdEmpresa,
   propStatus,
+  propCidade,
+  propBairro,
+  propRua,
+  propNumero,
+  newRequest,
 }) {
-  const [expanded, setExpanded] = React.useState(false);
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [status, setStatus] = React.useState(false);
-  const [openSnack, setOpenSnack] = React.useState(false);
+  const [expanded, setExpanded] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [status, setStatus] = useState(false);
+  const [openSnack, setOpenSnack] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
 
+  const handleModal = () => setOpenModal(!openModal);
   const handleSnack = () => {
     setOpenSnack(!openSnack);
   };
@@ -61,17 +68,30 @@ const CardRequest = function ({
     perecivel: propPerecivel,
     quantidade: propQuantidade,
     response: propResponsavel,
+    description: propDescricao,
     date1: propDate,
     status: true,
+  };
+
+  const stateEvent = () => {
+    newRequest();
   };
 
   const handleRequest = async () => {
     try {
       const response = await api.put(`/entregas/${propId}`, data);
       console.log(response.data);
+      stateEvent();
     } catch (error) {
       console.log(error);
     }
+  };
+  const DateNow = (dataRequest) => {
+    const now = moment(new Date());
+    const past = moment(dataRequest);
+    const duration = moment.duration(past.diff(now));
+    const days = Math.round(duration.asDays());
+    return days;
   };
 
   const handleStatus = (event) => {
@@ -84,9 +104,15 @@ const CardRequest = function ({
     <Card sx={{ borderRadius: 3 }}>
       <CardHeader
         avatar={
-          <Avatar sx={{ bgcolor: blue[500] }} aria-label="recipe">
-            {propQuantidade.toString()}x
-          </Avatar>
+          propQuantidade >= 3 ? (
+            <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+              {propQuantidade.toString()}x
+            </Avatar>
+          ) : (
+            <Avatar sx={{ bgcolor: blue[500] }} aria-label="recipe">
+              {propQuantidade.toString()}x
+            </Avatar>
+          )
         }
         action={
           <IconButton
@@ -100,13 +126,23 @@ const CardRequest = function ({
           </IconButton>
         }
         title={propEmpresa}
-        subheader={propDate}
+        subheader={
+          DateNow(propDate) <= 1 ? (
+            <Typography sx={{ color: red[500] }}>{propDate}</Typography>
+          ) : (
+            <Typography>{propDate}</Typography>
+          )
+        }
       />
       <CardContent>
         <Stack direction="row" spacing={1}>
           <Typography> Cliente:</Typography>
           <Typography> {propResponsavel}</Typography>
         </Stack>
+
+        <Typography color="text.secondary">
+          Descricao: {propDescricao}
+        </Typography>
       </CardContent>
 
       <CardActions disableSpacing>
@@ -118,7 +154,7 @@ const CardRequest = function ({
           justifyContent="space-between"
         >
           {propPerecivel ? <Chip color="error" label="Perecivel" /> : <Box />}
-          {propStatus ? (
+          {status || propStatus ? (
             <Button
               // onClick={() => handleRequest()}
               size="small"
@@ -129,28 +165,34 @@ const CardRequest = function ({
               Finalizado
             </Button>
           ) : (
-            <Button
-              onClick={handleStatus}
-              size="small"
-              color="success"
-              variant="contained"
-            >
-              Finalizar
-            </Button>
+            <Stack spacing={2} direction="row">
+              <Button
+                onClick={handleExpandClick}
+                size="small"
+                color="info"
+                variant="contained"
+              >
+                Detalhes
+              </Button>
+              <Button
+                onClick={handleStatus}
+                size="small"
+                color="success"
+                variant="contained"
+              >
+                Finalizar
+              </Button>
+            </Stack>
           )}
         </Stack>
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
-        {/* <CardContent>
-          <TextField
-            fullWidth
-            disabled
-            variant="standard"
-            defaultValue={responsavel}
-            value={responsavel}
-            label="Cliente"
-          />
-        </CardContent> */}
+        <CardContent>
+          <Typography>
+            Endereço: Cidade {propCidade}, Bairro {propBairro}, Rua {propRua},
+            Numero {propNumero}
+          </Typography>
+        </CardContent>
       </Collapse>
       <Menu
         id="basic-menu"
@@ -161,8 +203,8 @@ const CardRequest = function ({
           "aria-labelledby": "basic-button",
         }}
       >
-        <MenuItem onClick={handleClose}>Editar</MenuItem>
-        <MenuItem onClick={handleClose}>Excluir</MenuItem>
+        <MenuItem onClick={handleModal}>Editar</MenuItem>
+        <MenuItem onClick={handleModal}>Excluir</MenuItem>
       </Menu>
       <Snackbar
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
@@ -174,6 +216,19 @@ const CardRequest = function ({
           Entrega Finalizada!
         </Alert>
       </Snackbar>
+      <Modal
+        open={openModal}
+        onClose={handleModal}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={ModalStyled}>
+          <Typography sx={{ marginBottom: 3 }} variant="h6" component="h2">
+            Editar Entrega de codigo {propId}
+          </Typography>
+          <FormDelivery id={propId} testNewRequest={stateEvent} />
+        </Box>
+      </Modal>
     </Card>
   );
 };
