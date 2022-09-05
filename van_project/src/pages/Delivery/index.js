@@ -24,10 +24,6 @@ const Delivery = function () {
   const [atualDate, setAltualDate] = useState(new Date());
   const [prioridade, setPrioridade] = useState([]);
 
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
-
   const handleAllExpandClick = () => {
     setAllExpanded(!allExpanded);
   };
@@ -71,6 +67,10 @@ const Delivery = function () {
     }
   };
 
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
+  };
+
   useEffect(() => {
     handleRequests();
     handleEmpresas();
@@ -88,9 +88,6 @@ const Delivery = function () {
               justifyContent="center"
             >
               <Typography variant="h5">ENTREGAS PENDENTES</Typography>
-              <Typography variant="h4">
-                {atualDate.toLocaleDateString("pt-BR")}
-              </Typography>
             </Stack>
           </CardContent>
           <CardActions disableSpacing>
@@ -142,7 +139,13 @@ const Delivery = function () {
                       propEmpresa={empresas[request.uuid_empresa].name}
                       propDate={formatData.toLocaleDateString("pt-BR")}
                       propResponsavel={request.response}
+                      propDescricao={request.description}
                       propPerecivel={request.perecivel}
+                      newRequest={handleRequests}
+                      propCidade={request.cidade}
+                      propRua={request.rua}
+                      propBairro={request.bairro}
+                      propNumero={request.numero}
                     />
                   );
                 })}
@@ -207,6 +210,7 @@ const Delivery = function () {
                       propEmpresa={empresas[request.uuid_empresa].name}
                       propDate={formatData.toLocaleDateString("pt-BR")}
                       propResponsavel={request.response}
+                      propDescricao={request.description}
                       propPerecivel={request.perecivel}
                     />
                   );
