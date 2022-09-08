@@ -2,53 +2,27 @@
   "empresa": [
     {
       "id": 0,
-      "name": "Mercado 1"
+      "name": "Supermercado Juba"
     },
     {
-      "id": 1,
-      "name": "Mercado 2"
-    },
-    {
-      "name": "mercado 3",
-      "id": 2
-    },
-    {
-      "name": "mercado 4",
-      "id": 3
-    },
-    {
-      "name": "mercado 5",
-      "id": 4
-    },
-    {
-      "name": "mercado 6",
-      "id": 5
-    },
-    {
-      "name": "mercado 9",
-      "id": 6
+      "name": "Supermercado Nossa Senhora",
+      "id": 1
     }
   ],
   "entregas": [
     {
-      "uuid_empresa": 1,
-      "perecivel": true,
-      "quantidade": 2,
-      "response": "luander ilidio",
-      "description": "Leiute condensado",
-      "date1": "03/09/2022",
-      "status": true,
-      "id": 1
-    },
-    {
       "uuid_empresa": 0,
       "perecivel": true,
       "quantidade": 2,
-      "response": "luander ilidio",
-      "description": "Leite condensado",
-      "date1": "05/09/2022",
-      "status": true,
-      "id": 2
+      "response": "Luander Ilidio de Arruda",
+      "description": "Leite Condensado",
+      "date1": "2022-09-08T16:24:32.000Z",
+      "status": false,
+      "cidade": "Sapezal",
+      "bairro": "Jardim sapezal",
+      "rua": "Av. Pintado",
+      "numero": "28",
+      "id": 1
     }
   ]
 }
