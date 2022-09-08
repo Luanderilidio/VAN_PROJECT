@@ -26,9 +26,9 @@ import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { ptBR } from "date-fns/locale";
 import styleModal from "./styles";
 import api from "../../services/api";
+import "animate.css";
 
 const FormDelivery = function ({ id, testNewRequest }) {
-  const [date, setDate] = useState(new Date());
   const [valueDate, setValueDate] = useState(new Date());
   const [responsavel, setResponsavel] = useState("");
   const [descricao, setDescricao] = useState("");
@@ -39,16 +39,14 @@ const FormDelivery = function ({ id, testNewRequest }) {
   const [empresa, setEmpresa] = useState("");
   const [openSnack, setOpenSnack] = useState(false);
   const [openModal, setOpenModal] = useState(false);
-  const [zipCode, setZipCode] = useState();
   const [city, setCity] = useState();
   const [district, setDistrict] = useState();
   const [street, setStreet] = useState();
   const [number, setNumber] = useState();
-  const [complement, setComplement] = useState();
-
-  const handleModal = () => setOpenModal(!openModal);
 
   const navigate = useNavigate();
+
+  const handleModal = () => setOpenModal(!openModal);
 
   const handleSnack = () => {
     setOpenSnack(!openSnack);
@@ -323,16 +321,19 @@ const FormDelivery = function ({ id, testNewRequest }) {
         </Stack>
       </Grid>
       <Snackbar
-        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
         open={openSnack}
         autoHideDuration={3000}
         onClose={handleSnack}
       >
-        <Alert onClose={handleSnack} severity="success" sx={{ width: "100%" }}>
+        <Alert
+          onClose={handleSnack}
+          severity="success"
+          sx={{ zIndex: 5, width: "60%" }}
+        >
           Cadastrado com Sucesso!
         </Alert>
       </Snackbar>
-
       <Modal open={openModal} onClose={handleModal}>
         <Box sx={styleModal}>
           <Typography gutterBottom variant="h6" component="h2">
