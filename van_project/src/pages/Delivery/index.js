@@ -14,6 +14,7 @@ import moment from "moment";
 import CardRequest from "../../components/CardRequest";
 import Page from "../../components/page";
 import api from "../../services/api";
+import "animate.css";
 
 const Delivery = function () {
   const [allRequests, setAllRequests] = useState([]);
@@ -79,7 +80,11 @@ const Delivery = function () {
   return (
     <Page>
       <Container maxWidth="desktop">
-        <Card sx={{ borderRadius: 3 }} elevation={2}>
+        <Box
+          sx={{ border: "1px solid #E8E8E8", borderRadius: 3 }}
+          elevation={2}
+          className="animate__animated animate__fadeIn"
+        >
           <CardContent>
             <Stack
               width="100%"
@@ -137,7 +142,8 @@ const Delivery = function () {
                       propQuantidade={request.quantidade}
                       propIdEmpresa={request.uuid_empresa}
                       propEmpresa={empresas[request.uuid_empresa].name}
-                      propDate={formatData.toLocaleDateString("pt-BR")}
+                      propFormatDate={formatData.toLocaleDateString("pt-BR")}
+                      propDate={request.date1}
                       propResponsavel={request.response}
                       propDescricao={request.description}
                       propPerecivel={request.perecivel}
@@ -152,9 +158,13 @@ const Delivery = function () {
               </Stack>
             </CardContent>
           </Collapse>
-        </Card>
+        </Box>
 
-        <Card sx={{ borderRadius: 3, marginTop: 2 }} elevation={2}>
+        <Box
+          sx={{ border: "1px solid #E8E8E8", borderRadius: 3, marginTop: 3 }}
+          elevation={2}
+          className="animate__animated animate__fadeIn animate__delay-1s"
+        >
           <CardContent>
             <Stack
               width="100%"
@@ -208,17 +218,22 @@ const Delivery = function () {
                       propQuantidade={request.quantidade}
                       propIdEmpresa={request.uuid_empresa}
                       propEmpresa={empresas[request.uuid_empresa].name}
-                      propDate={formatData.toLocaleDateString("pt-BR")}
+                      propFormatDate={formatData.toLocaleDateString("pt-BR")}
+                      propDate={request.date1}
                       propResponsavel={request.response}
                       propDescricao={request.description}
                       propPerecivel={request.perecivel}
+                      propCidade={request.cidade}
+                      propRua={request.rua}
+                      propBairro={request.bairro}
+                      propNumero={request.numero}
                     />
                   );
                 })}
               </Stack>
             </CardContent>
           </Collapse>
-        </Card>
+        </Box>
       </Container>
     </Page>
   );
