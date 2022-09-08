@@ -25,11 +25,13 @@ import moment from "moment";
 import api from "../../services/api";
 import ModalStyled from "./styles";
 import FormDelivery from "../FormDelivery";
+import "animate.css";
 
 const CardRequest = function ({
   propId,
   propEmpresa,
   propDate,
+  propFormatDate,
   propQuantidade,
   propResponsavel,
   propPerecivel,
@@ -71,6 +73,10 @@ const CardRequest = function ({
     description: propDescricao,
     date1: propDate,
     status: true,
+    cidade: propCidade,
+    bairro: propBairro,
+    rua: propRua,
+    numero: propNumero,
   };
 
   const stateEvent = () => {
@@ -101,7 +107,10 @@ const CardRequest = function ({
   };
 
   return (
-    <Card sx={{ borderRadius: 3 }}>
+    <Card
+      className="animate__animated animate__fadeIn"
+      sx={{ borderRadius: 3 }}
+    >
       <CardHeader
         avatar={
           propQuantidade >= 3 ? (
@@ -128,9 +137,9 @@ const CardRequest = function ({
         title={propEmpresa}
         subheader={
           DateNow(propDate) <= 1 ? (
-            <Typography sx={{ color: red[500] }}>{propDate}</Typography>
+            <Typography sx={{ color: red[500] }}>{propFormatDate}</Typography>
           ) : (
-            <Typography>{propDate}</Typography>
+            <Typography>{propFormatDate}</Typography>
           )
         }
       />
@@ -141,7 +150,7 @@ const CardRequest = function ({
         </Stack>
 
         <Typography color="text.secondary">
-          Descricao: {propDescricao}
+          Descrição: {propDescricao}
         </Typography>
       </CardContent>
 
@@ -204,7 +213,6 @@ const CardRequest = function ({
         }}
       >
         <MenuItem onClick={handleModal}>Editar</MenuItem>
-        <MenuItem onClick={handleModal}>Excluir</MenuItem>
       </Menu>
       <Snackbar
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
