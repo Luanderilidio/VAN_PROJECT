@@ -18,7 +18,7 @@ import {
   Chip,
   Stack,
 } from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
+import { HiMenu } from "react-icons/hi";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { TbTruckDelivery } from "react-icons/tb";
@@ -54,9 +54,14 @@ const Page = function ({ children }) {
             edge="start"
             sx={{ mr: 2, ...(open && { display: "none" }) }}
           >
-            <MenuIcon />
+            <HiMenu color="#FFFFFF" />
           </IconButton>
-          <Typography sx={{color: "#FFFFFF"}} variant="h6" noWrap component="div">
+          <Typography
+            sx={{ color: "#FFFFFF" }}
+            variant="h6"
+            noWrap
+            component="div"
+          >
             Entregas Van
           </Typography>
         </Toolbar>
