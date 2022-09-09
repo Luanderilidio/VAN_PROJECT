@@ -81,7 +81,7 @@ const Delivery = function () {
     <Page>
       <Container maxWidth="desktop">
         <Box
-          sx={{ border: "1px solid #E8E8E8", borderRadius: 3 }}
+          sx={{ border: "1px solid #E8E8E8", padding: 2, borderRadius: 3 }}
           elevation={2}
           className="animate__animated animate__fadeIn"
         >
@@ -130,10 +130,6 @@ const Delivery = function () {
               <Stack direction="column" spacing={2}>
                 {prioridade.map((request) => {
                   const formatData = new Date(request.date1);
-                  // const nome = empresas[request.uuid_empresa];
-                  // console.log(request.uuid_empresa);
-                  // console.log(nome);
-                  // const { name } = empresas[request.uuid_empresa];
                   return (
                     <CardRequest
                       key={request.id}
@@ -161,9 +157,14 @@ const Delivery = function () {
         </Box>
 
         <Box
-          sx={{ border: "1px solid #E8E8E8", borderRadius: 3, marginTop: 3 }}
+          sx={{
+            border: "1px solid #E8E8E8",
+            borderRadius: 3,
+            padding: 2,
+            marginTop: 3,
+          }}
           elevation={2}
-          className="animate__animated animate__fadeIn animate__delay-1s"
+          className="animate__animated animate__fadeIn animate__delay-.5s"
         >
           <CardContent>
             <Stack
