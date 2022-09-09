@@ -234,7 +234,7 @@ const CardRequest = function ({
           <Typography sx={{ marginBottom: 3 }} variant="h6" component="h2">
             Editar Entrega de codigo {propId}
           </Typography>
-          <FormDelivery id={propId} testNewRequest={stateEvent} />
+          <FormDelivery id={propId} closeModal={handleModal} />
         </Box>
       </Modal>
     </Card>
