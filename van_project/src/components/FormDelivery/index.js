@@ -28,7 +28,7 @@ import styleModal from "./styles";
 import api from "../../services/api";
 import "animate.css";
 
-const FormDelivery = function ({ id, testNewRequest }) {
+const FormDelivery = function ({ id, closeModal }) {
   const [valueDate, setValueDate] = useState(new Date());
   const [responsavel, setResponsavel] = useState("");
   const [descricao, setDescricao] = useState("");
@@ -39,10 +39,10 @@ const FormDelivery = function ({ id, testNewRequest }) {
   const [empresa, setEmpresa] = useState("");
   const [openSnack, setOpenSnack] = useState(false);
   const [openModal, setOpenModal] = useState(false);
-  const [city, setCity] = useState();
-  const [district, setDistrict] = useState();
-  const [street, setStreet] = useState();
-  const [number, setNumber] = useState();
+  const [city, setCity] = useState("");
+  const [district, setDistrict] = useState("");
+  const [street, setStreet] = useState("");
+  const [number, setNumber] = useState("");
 
   const navigate = useNavigate();
 
@@ -50,6 +50,10 @@ const FormDelivery = function ({ id, testNewRequest }) {
 
   const handleSnack = () => {
     setOpenSnack(!openSnack);
+  };
+
+  const handleModalCard = () => {
+    closeModal();
   };
 
   const handleAllEmpresa = async () => {
@@ -128,7 +132,7 @@ const FormDelivery = function ({ id, testNewRequest }) {
     try {
       const response = await api.put(`/entregas/${id}`, data);
       handleSnack();
-      testNewRequest();
+      handleModalCard();
     } catch (error) {
       console.error(error);
     }
@@ -284,19 +288,41 @@ const FormDelivery = function ({ id, testNewRequest }) {
           sx={{ width: "100%" }}
         >
           {id ? (
-            <>
-              <Box />
+            <Stack
+              sx={{ width: "100%" }}
+              direction="row"
+              justifyContent="space-between"
+            >
               <Button
+                onClick={() => handleModalCard()}
+                color="info"
+                variant="contained"
+              >
+                Fechar
+              </Button>
+              <Button
+                color="success"
+                variant="contained"
                 onClick={() => {
                   handlePutPedido();
                 }}
-                color="success"
-                variant="contained"
               >
                 Editar
               </Button>
-            </>
+            </Stack>
           ) : (
+            // <>
+            //   <Box />
+            //   <Button
+            // onClick={() => {
+            //   handlePutPedido();
+            // }}
+            //     color="success"
+            //     variant="contained"
+            //   >
+            //     Editar
+            //   </Button>
+            // </>
             <>
               <Button
                 onClick={() => {
